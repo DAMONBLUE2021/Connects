@@ -1,6 +1,7 @@
 import ArticleModal from "@/components/ArticleModal";
 import Masthead from "@/components/Masthead";
 import MobileNav from "@/components/MobileNav";
+import ModeToggle from "@/components/ModeToggle";
 import { ArticleProvider } from "@/context/ArticleContext";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
           </main>
 
           <MobileNav />
+          <ModeToggle />
           <ArticleModal />
         </ArticleProvider>
       </body>
