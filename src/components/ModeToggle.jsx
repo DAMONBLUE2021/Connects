@@ -35,7 +35,10 @@ const ModeToggle = () => {
         document.documentElement.setAttribute('data-mode', modeString)
         localStorage.setItem('connects-theme', modeString)
 
-        // Sound effect (optional, keeping silent for now or add playAudio() here)
+        // Vibration feedback for mobile
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+            navigator.vibrate(50);
+        }
     }
 
     const handleDragEnd = (_, info) => {
@@ -47,19 +50,20 @@ const ModeToggle = () => {
     }
 
     return (
-        <div className="fixed top-0 right-4 md:right-12 z-50 flex flex-col items-center pointer-events-none">
+        <div className="fixed top-0 right-8 md:right-32 z-[100] flex flex-col items-center pointer-events-none mix-blend-difference">
             {/* The String */}
             <motion.div
-                className="w-0.5 bg-[var(--ink)] origin-top"
+                className="w-0.5 bg-current origin-top"
                 style={{ height: stringHeight }}
             />
 
             {/* The Handle / Knob */}
             <motion.div
-                className="pointer-events-auto cursor-grab active:cursor-grabbing relative group"
+                className="pointer-events-auto cursor-grab active:cursor-grabbing relative group text-[var(--paper)]"
                 drag="y"
                 dragConstraints={{ top: 0, bottom: 100 }}
-                dragElastic={0.1}
+                dragElastic={0.2}
+                dragSnapToOrigin
                 onDragEnd={handleDragEnd}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -67,22 +71,22 @@ const ModeToggle = () => {
                 whileTap={{ scale: 1.1 }}
             >
                 {/* Knob Body */}
-                <div className="w-8 h-8 rounded-full bg-[var(--ink)] shadow-lg flex items-center justify-center border-2 border-[var(--paper)] transition-colors duration-300">
+                <div className="w-8 h-8 rounded-full bg-current shadow-lg flex items-center justify-center transition-colors duration-300">
                     {/* Icon rotates based on theme */}
                     <motion.div
                         animate={{ rotate: isInkMode ? 180 : 0 }}
                         transition={{ type: "spring", stiffness: 200, damping: 10 }}
                     >
                         {isInkMode ? (
-                            <Moon size={14} className="text-[var(--paper)] fill-current" />
+                            <Moon size={14} className="text-[var(--ink)] fill-current" />
                         ) : (
-                            <Sun size={14} className="text-[var(--paper)]" />
+                            <Sun size={14} className="text-[var(--ink)]" />
                         )}
                     </motion.div>
                 </div>
 
                 {/* Tooltip hint */}
-                <div className={`absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-black text-white text-[10px] uppercase font-bold px-2 py-1 rounded opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : ''}`}>
+                <div className={`absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[var(--paper)] text-[var(--ink)] text-[10px] uppercase font-bold px-2 py-1 rounded opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : ''}`}>
                     Pull to Switch
                 </div>
             </motion.div>
