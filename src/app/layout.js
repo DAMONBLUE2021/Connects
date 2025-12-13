@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
 
           <Masthead />
 
-          <main className="min-h-screen flex flex-col relative z-0">
+          <main className="min-h-screen flex flex-col relative z-0 pb-24 md:pb-0">
             {children}
           </main>
 

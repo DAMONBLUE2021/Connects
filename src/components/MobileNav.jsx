@@ -3,7 +3,6 @@
 import { BookOpen, Calendar, Home } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ModeToggle from "./ModeToggle";
 
 export default function MobileNav() {
     const pathname = usePathname();
@@ -37,15 +36,6 @@ export default function MobileNav() {
                             </Link>
                         );
                     })}
-
-                    {/* Mode Toggle as a Nav Item */}
-                    <div className="flex flex-col items-center gap-1">
-                        <ModeToggle className="!p-0 !bg-transparent hover:!bg-transparent" />
-                        <span className="text-[10px] font-sans font-bold uppercase tracking-wide text-[var(--ink)]/60">
-                            Theme
-                        </span>
-                    </div>
-
                 </div>
             </nav>
         </div>
