@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Menu, Search, User } from "lucide-react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ModeToggle from "./ModeToggle";
 
 export default function Masthead() {
     const pathname = usePathname();
@@ -53,6 +54,7 @@ export default function Masthead() {
                 <div className="absolute top-8 right-4 flex gap-4">
                     <Search className="w-5 h-5 cursor-pointer hover:opacity-70 transition-opacity" />
                     <User className="w-5 h-5 cursor-pointer hover:opacity-70 transition-opacity" />
+                    <ModeToggle className="hidden md:flex" />
                     <Menu className="w-5 h-5 cursor-pointer hover:opacity-70 transition-opacity md:hidden" />
                 </div>
 
