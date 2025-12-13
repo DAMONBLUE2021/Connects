@@ -1,39 +1,81 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
 
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Paper Mode (Light) - Warm, old newspaper feel */
+  --background: #F4F1EA;
+  --foreground: #111111;
+  --paper: #F4F1EA;
+  --ink: #111111;
+  --accent: #8b0000;
+  /* Deep redaction red for accents */
+
+  /* Texture overlays would be handled in layout or specific components */
+}
+
+[data-mode="ink"] {
+  /* Ink Mode (Dark) - Deep charcoal, fresh ink feel */
+  --background: #0f0f0f;
+  --foreground: #e5e5e5;
+  --paper: #0f0f0f;
+  --ink: #e5e5e5;
+  --accent: #ff4444;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-serif);
+  transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
 }
 
+/* Custom Utilities for Typography */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Hide scrollbar for clean aesthetic but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Marquee Animation */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
   }
+
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
 .animate-marquee {
-  animation: marquee 15s linear infinite;
+  animation: marquee 20s linear infinite;
+}
+
+/* Selection Style */
+::selection {
+  background-color: var(--ink);
+  color: var(--paper);
 }
