@@ -12,7 +12,7 @@ const articles = [
         excerpt: "How acoustics and aesthetics merge in the latest campus addition.",
         author: "Sarah Jenkings",
         category: "Architecture",
-        image: "https://images.unsplash.com/photo-1514533240710-388ef75a2092?w=800",
+        image: "https://images.unsplash.com/photo-1719753458800-c09cfb167ac5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         priority: true
     },
     {
@@ -66,7 +66,7 @@ export default function MagazinePage() {
         <div className="container mx-auto px-4 pb-20">
 
             {/* Header / Filter Bar */}
-            <div className="flex flex-col md:flex-row justify-between items-end border-b-4 border-black pb-4 mb-12 sticky top-0 bg-[var(--paper)] z-30 pt-4 transition-colors duration-700">
+            <div className="flex flex-col md:flex-row justify-between items-end border-b-4 border-black pb-4 mb-12 pt-4 transition-colors duration-700">
                 <div>
                     <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter mb-2">
                         The Feed
@@ -84,8 +84,8 @@ export default function MagazinePage() {
                                 key={filter}
                                 onClick={() => setActiveFilter(filter)}
                                 className={`text-xs font-bold uppercase px-3 py-1 border transition-all ${activeFilter === filter
-                                        ? 'bg-black text-white border-black'
-                                        : 'border-gray-300 hover:border-black text-gray-500 hover:text-black'
+                                    ? 'bg-black text-white border-black'
+                                    : 'border-gray-300 hover:border-black text-gray-500 hover:text-black'
                                     }`}
                             >
                                 {filter}

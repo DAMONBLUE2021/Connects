@@ -33,6 +33,14 @@ export default function Home() {
 
         {/* Left Column: Briefs & Weather/Info */}
         <div className="col-span-12 lg:col-span-3 border-r border-gray-300 pr-6 space-y-8 hidden lg:block">
+          
+          <div className="p-4 bg-[var(--ink)] text-[var(--paper)]">
+            <h4 className="font-sans font-bold text-xs uppercase tracking-widest mb-2 border-b border-gray-600 pb-1">Campus Weather</h4>
+            <div className="flex items-center justify-between">
+              <span className="font-serif text-3xl">28°C</span>
+              <span className="text-xs uppercase">Sunny<br />Kundrathur</span>
+            </div>
+          </div>
           <div className="space-y-4">
             <h4 className="font-sans font-bold text-xs uppercase tracking-widest border-b border-black pb-1 mb-3">In This Issue</h4>
             {sideStories.map((story, i) => (
@@ -45,13 +53,6 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="p-4 bg-[var(--ink)] text-[var(--paper)]">
-            <h4 className="font-sans font-bold text-xs uppercase tracking-widest mb-2 border-b border-gray-600 pb-1">Campus Weather</h4>
-            <div className="flex items-center justify-between">
-              <span className="font-serif text-3xl">28°C</span>
-              <span className="text-xs uppercase">Sunny<br />Kundrathur</span>
-            </div>
-          </div>
         </div>
 
         {/* Center Column: Hero Story */}

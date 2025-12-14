@@ -1,110 +1,160 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
-export default function ClubPage() {
+const CULTURAL_CLUBS = [
+    { name: "CIT Connects", slug: "cit-connects" },
+    { name: "Campus TV", slug: "campus-tv" },
+    { name: "Immerse", slug: "immerse" },
+    { name: "Yuvenza", slug: "yuvenza" },
+];
+
+const TECHNICAL_CLUBS = [
+    { name: "Assymetric", slug: "assymetric" },
+    { name: "ExploitX", slug: "exploitx" },
+    { name: "Celestials", slug: "celestials" },
+];
+
+const ClubCard = ({ name, slug }) => {
     return (
-        <div className="container mx-auto px-4 pb-20">
+        <Link href={`/club/${slug}`} className="block group">
+            <div className="relative overflow-hidden border-2 border-[var(--ink)] bg-[var(--paper)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_var(--ink)] h-full">
 
-            {/* Manifesto Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 border-b-4 border-black pb-16 mb-16">
-                <div>
-                    <h1 className="font-serif text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
-                        The<br />Club.
-                    </h1>
-                    <p className="font-sans text-xs font-bold uppercase tracking-widest border-t border-b border-black py-4 mb-8">
-                        Est. 2025 • Chennai Institute of Technology
-                    </p>
+                {/* Card Header / Folder Tab Effect */}
+                <div className="border-b-2 border-[var(--ink)] px-4 py-2 bg-[var(--ink)] text-[var(--paper)] flex justify-between items-center">
+                    <span className="font-mono text-xs uppercase tracking-widest truncate max-w-[80%]">Club_Data.dir</span>
+                    <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
-                <div className="flex flex-col justify-center">
-                    <h2 className="font-serif text-3xl font-bold italic mb-6">Our Manifesto</h2>
-                    <p className="font-serif text-xl md:text-2xl leading-relaxed mb-6">
-                        &quot;We believe in the power of the written word, the impact of a captured image, and the resonance of a spoken story. We are not just a student body; we are a dedicated newsroom, a creative studio, and a cultural archive.&quot;
-                    </p>
-                    <p className="font-serif text-lg text-gray-600">
-                        — The Editorial Board
-                    </p>
+                {/* Card Content */}
+                <div className="p-6 flex flex-col items-center justify-center aspect-square text-center relative">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+                    {/* Logo */}
+                    <div className="relative w-24 h-24 mb-6 transition-transform duration-500 group-hover:scale-110">
+                        {/* Using explicit public path as requested */}
+                        <img
+                            src={`/${name}.png`}
+                            alt={`${name} Logo`}
+                            className="w-full h-full object-contain drop-shadow-lg"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                            }}
+                        />
+                        {/* Fallback if logo missing */}
+                        <div className="hidden absolute inset-0 bg-[var(--ink)] text-[var(--paper)] rounded-full items-center justify-center font-serif text-3xl font-bold">
+                            {name.charAt(0)}
+                        </div>
+                    </div>
+
+                    {/* Club Name */}
+                    <h3 className="font-serif text-2xl font-bold tracking-tight relative z-10 group-hover:underline decoration-2 underline-offset-4 decoration-[var(--accent)]">
+                        {name}
+                    </h3>
+                </div>
+            </div>
+        </Link>
+    );
+};
+
+export default function ClubPage() {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0 }
+    };
+
+    return (
+        <div className="container mx-auto px-4 pb-20 pt-8 min-h-screen">
+
+            {/* Page Title */}
+            <div className="border-b-4 border-[var(--ink)] pb-8 mb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-end">
+
+                    {/* Left: Heading */}
+                    <div>
+                        <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter leading-none mb-4">
+                            The<br />Network.
+                        </h1>
+                        <p className="font-sans text-sm font-bold uppercase tracking-widest text-gray-500">
+                            Student Organizations & Communities
+                        </p>
+                    </div>
+
+                    {/* Right: Editorial Columns */}
+                    <div className="hidden md:grid grid-cols-2 gap-6 pb-2 border-l border-gray-300 pl-6 lg:border-none lg:pl-0">
+                        <p className="font-serif text-xs md:text-sm leading-relaxed text-justify text-gray-800">
+                            <span className="font-bold text-5xl float-left mr-3 mt-[-4px] leading-[0.8] mb-1">A</span>t the heart of the Institute lies a vibrant ecosystem of student-led organizations. These clubs are not merely extracurricular groups; they are incubators of innovation, creativity, and leadership. From the technical wizardry of our coding societies to the artistic expressions of our cultural wings, The Network represents the diverse tapestry of talent that defines our campus.
+                        </p>
+                        <p className="font-serif text-xs md:text-sm leading-relaxed text-justify text-gray-800">
+                            Membership in these communities offers more than just a line on a resume. It provides a platform for collaboration, a space for experimentation, and a home for those who share your passions. Whether you are looking to debug complex algorithms, capture the perfect frame, or debate the issues of the day, there is a place for you here.
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
-            {/* Leadership / Editors (Newspaper Staff Columns) */}
+            {/* Cultural Clubs Section */}
             <section className="mb-24">
-                <h3 className="font-sans text-sm font-bold uppercase tracking-widest mb-8 border-b border-gray-300 pb-2">The Masthead</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="text-center group cursor-pointer">
-                            <div className="w-full aspect-[3/4] bg-gray-200 mb-4 grayscale group-hover:grayscale-0 transition-all duration-500 overflow-hidden relative">
-                                {/* Placeholder for staff image */}
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-serif italic">
-                                    Portrait
-                                </div>
-                            </div>
-                            <h4 className="font-serif font-bold text-lg">Student Name</h4>
-                            <p className="font-sans text-[10px] uppercase tracking-widest text-gray-500">Editor-in-Chief</p>
-                        </div>
-                    ))}
+                <div className="flex items-center gap-4 mb-12">
+                    <h2 className="font-serif text-4xl font-bold italic pr-6 bg-[var(--paper)] relative z-10">
+                        Cultural Clubs
+                    </h2>
+                    <div className="h-px bg-[var(--ink)] flex-grow opacity-30"></div>
                 </div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+                >
+                    {CULTURAL_CLUBS.map((club) => (
+                        <motion.div key={club.name} variants={itemVariants}>
+                            <ClubCard name={club.name} slug={club.slug} />
+                        </motion.div>
+                    ))}
+                </motion.div>
             </section>
 
-            {/* Membership Classifieds */}
+            {/* Technical Clubs Section */}
             <section>
-                <div className="border-t-4 border-black pt-4 mb-12 text-center">
-                    <h2 className="font-serif text-5xl md:text-6xl font-black uppercase tracking-tighter">Membership Classifieds</h2>
-                    <p className="font-serif italic mt-2 text-xl">Select your role.</p>
+                <div className="flex items-center gap-4 mb-12">
+                    <h2 className="font-serif text-4xl font-bold italic pr-6 bg-[var(--paper)] relative z-10">
+                        Technical Clubs
+                    </h2>
+                    <div className="h-px bg-[var(--ink)] flex-grow opacity-30"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-black divide-y md:divide-y-0 md:divide-x divide-black bg-[var(--paper)]">
-
-                    {/* Tier 1 */}
-                    <div className="p-8 flex flex-col hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors duration-500 group relative">
-                        <div className="absolute top-4 right-4 text-xs font-bold border border-current px-2 py-1 rounded-full uppercase">Free</div>
-                        <h3 className="font-serif text-3xl font-bold mb-4 italic">The Reader</h3>
-                        <p className="text-sm opacity-80 mb-8 leading-relaxed">For those who observe, read, and appreciate the culture from a distance.</p>
-                        <ul className="space-y-3 mb-12 flex-grow">
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Access to digital magazine</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Weekly newsletter</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Event notifications</li>
-                        </ul>
-                        <button className="w-full py-3 border border-current text-xs font-bold uppercase tracking-widest group-hover:bg-[var(--paper)] group-hover:text-[var(--ink)] transition-colors">
-                            Join Community
-                        </button>
-                    </div>
-
-                    {/* Tier 2 */}
-                    <div className="p-8 flex flex-col bg-black text-white relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-                        <div className="absolute top-4 right-4 text-xs font-bold bg-[var(--accent)] text-white px-2 py-1 uppercase tracking-widest">Applied Only</div>
-                        <h3 className="font-serif text-3xl font-bold mb-4 italic">The Contributor</h3>
-                        <p className="text-sm opacity-80 mb-8 leading-relaxed">For writers, photographers, and designers ready to shape the narrative.</p>
-                        <ul className="space-y-3 mb-12 flex-grow">
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Submit articles & art</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Press pass for events</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Portfolio feature</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Access to workshops</li>
-                        </ul>
-                        <button className="w-full py-3 bg-[var(--paper)] text-black text-xs font-bold uppercase tracking-widest hover:bg-[var(--accent)] hover:text-white transition-colors relative z-10">
-                            Apply Now
-                        </button>
-                    </div>
-
-                    {/* Tier 3 */}
-                    <div className="p-8 flex flex-col hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors duration-500 group">
-                        <h3 className="font-serif text-3xl font-bold mb-4 italic">The Editor</h3>
-                        <p className="text-sm opacity-80 mb-8 leading-relaxed">Leadership roles for those who want to steer the direction of the publication.</p>
-                        <ul className="space-y-3 mb-12 flex-grow">
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Editorial decision making</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Manage juniors</li>
-                            <li className="flex gap-3 text-sm"><Check size={16} /> Budget Allocation Access</li>
-                        </ul>
-                        <button className="w-full py-3 border border-current text-xs font-bold uppercase tracking-widest group-hover:bg-[var(--paper)] group-hover:text-[var(--ink)] transition-colors">
-                            View Openings
-                        </button>
-                    </div>
-
-                </div>
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {TECHNICAL_CLUBS.map((club) => (
+                        <motion.div key={club.name} variants={itemVariants}>
+                            <ClubCard name={club.name} slug={club.slug} />
+                        </motion.div>
+                    ))}
+                </motion.div>
             </section>
 
         </div>
     );
 }
+
