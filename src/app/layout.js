@@ -1,4 +1,5 @@
 import ArticleModal from "@/components/ArticleModal";
+import IntroAnimation from "@/components/IntroAnimation";
 import Masthead from "@/components/Masthead";
 import MobileNav from "@/components/MobileNav";
 import ModeToggle from "@/components/ModeToggle";
@@ -34,15 +35,17 @@ export default function RootLayout({ children }) {
         <ArticleProvider>
           <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.05] mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-          <Masthead />
+          <IntroAnimation>
+            <Masthead />
 
-          <main className="min-h-screen flex flex-col relative z-0 pb-24 md:pb-0">
-            {children}
-          </main>
+            <main className="min-h-screen flex flex-col relative z-0 pb-24 md:pb-0">
+              {children}
+            </main>
 
-          <MobileNav />
-          <ModeToggle />
-          <ArticleModal />
+            <MobileNav />
+            <ModeToggle />
+            <ArticleModal />
+          </IntroAnimation>
         </ArticleProvider>
       </body>
     </html>
