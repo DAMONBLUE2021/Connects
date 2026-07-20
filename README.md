@@ -1,3 +1,2 @@
 Readme.md
-#this club dead? probably yeah for sur
-
+#this club dead? probably yeah for sure
